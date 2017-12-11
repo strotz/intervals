@@ -53,6 +53,7 @@
     <Compile Include="LinearContainerTests.cs" />
     <Compile Include="IntervalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeContainerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

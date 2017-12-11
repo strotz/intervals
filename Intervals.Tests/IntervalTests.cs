@@ -4,6 +4,7 @@ using NUnit.Framework;
 namespace Intervals.Tests
 {
 	[TestFixture("linear")]
+	[TestFixture("bst")]
 	public class IntervalTests
 	{
 		private readonly string _collectionType;
@@ -21,6 +22,10 @@ namespace Intervals.Tests
 			{
 				case "linear":
 					_intervalCollection = new LinearIntervalCollection();
+					break;
+
+				case "bst":
+					_intervalCollection = new SortedTreeIntervalCollection();
 					break;
 			}
 		}
@@ -231,14 +236,46 @@ namespace Intervals.Tests
 		public void ExampleTest()
 		{
 			_intervalCollection.Add(1,5);
-			_intervalCollection.Remove(2, 3);
-			_intervalCollection.Add(6, 8);
-			_intervalCollection.Remove(4, 7);
-			_intervalCollection.Add(2, 7);
-
-			Assert.That(_intervalCollection.Items, Is.Not.Null);
 
 			var result = _intervalCollection.Items.ToList();
+			Assert.That(result, Has.Count.EqualTo(1));
+			Assert.That(result[0].Start, Is.EqualTo(1));
+			Assert.That(result[0].Stop, Is.EqualTo(5));
+
+			_intervalCollection.Remove(2, 3);
+
+			result = _intervalCollection.Items.ToList();
+			Assert.That(result, Has.Count.EqualTo(2));
+			Assert.That(result[0].Start, Is.EqualTo(1));
+			Assert.That(result[0].Stop, Is.EqualTo(2));
+			Assert.That(result[1].Start, Is.EqualTo(3));
+			Assert.That(result[1].Stop, Is.EqualTo(5));
+
+			_intervalCollection.Add(6, 8);
+
+			result = _intervalCollection.Items.ToList();
+			Assert.That(result, Has.Count.EqualTo(3));
+			Assert.That(result[0].Start, Is.EqualTo(1));
+			Assert.That(result[0].Stop, Is.EqualTo(2));
+			Assert.That(result[1].Start, Is.EqualTo(3));
+			Assert.That(result[1].Stop, Is.EqualTo(5));
+			Assert.That(result[2].Start, Is.EqualTo(6));
+			Assert.That(result[2].Stop, Is.EqualTo(8));
+
+			_intervalCollection.Remove(4, 7);
+
+			result = _intervalCollection.Items.ToList();
+			Assert.That(result, Has.Count.EqualTo(3));
+			Assert.That(result[0].Start, Is.EqualTo(1));
+			Assert.That(result[0].Stop, Is.EqualTo(2));
+			Assert.That(result[1].Start, Is.EqualTo(3));
+			Assert.That(result[1].Stop, Is.EqualTo(4));
+			Assert.That(result[2].Start, Is.EqualTo(7));
+			Assert.That(result[2].Stop, Is.EqualTo(8));
+
+			_intervalCollection.Add(2, 7);
+
+			result = _intervalCollection.Items.ToList();
 			Assert.That(result, Has.Count.EqualTo(1));
 			Assert.That(result[0].Start, Is.EqualTo(1));
 			Assert.That(result[0].Stop, Is.EqualTo(8));

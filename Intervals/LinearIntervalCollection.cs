@@ -81,7 +81,7 @@ namespace Intervals
 			{
 				currentNode = RawAddFirst(start, stop);
 			}
-			else if (currentNode.Value.Stop < start)
+			else if (currentNode.Value.Stop < start) // intervals ends before requested start
 			{
 				currentNode = RawAddAfter(currentNode, start, stop);
 			}
