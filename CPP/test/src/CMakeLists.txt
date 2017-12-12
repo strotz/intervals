@@ -1,11 +1,15 @@
 set(CMAKE_CXX_STANDARD 17)
 
-set(test_sources
-        main.cpp)
+include_directories(../../src)
+
+set(
+        test_sources
+        container_tests.h
+        container_tests.cpp
+        main.cpp
+)
 
 add_executable(testIntervals ${test_sources})
-
-include_directories(../../src)
 
 target_link_libraries(testIntervals
         libgtest
@@ -14,5 +18,3 @@ target_link_libraries(testIntervals
 
 add_test(NAME testIntervals
         COMMAND testIntervals)
-
-install(TARGETS testIntervals DESTINATION bin)

@@ -1,6 +1,6 @@
-set(sources
+set(
+        sources
+        container.h
         main.cpp)
 
 add_executable(intervals ${sources})
-
-install(TARGETS intervals DESTINATION bin)

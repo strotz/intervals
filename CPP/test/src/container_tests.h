@@ -1,0 +1,6 @@
+#ifndef INTERVALS_CONTAINER_TESTS_H
+#define INTERVALS_CONTAINER_TESTS_H
+
+#include "container.h"
+
+#endif //INTERVALS_CONTAINER_TESTS_H
