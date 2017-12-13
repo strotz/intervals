@@ -4,7 +4,8 @@
 #include <set>
 #include <unordered_map>
 #include <iterator>
-#include "container.h"
+#include "set_ext.h"
+#include "backports.h"
 
 struct interval
 {
@@ -64,44 +65,6 @@ public:
     {
         return iterator_ != __x.iterator_;
     }
-};
-
-// poot man replacement of std::optional
-template<typename Val>
-struct place
-{
-    place() : value_(nullptr)
-    {
-    }
-
-    ~place()
-    {
-        if (value_ != nullptr)
-        {
-            delete value_;
-        }
-    }
-
-    void assign(Val* value)
-    {
-        value_ = value;
-    }
-
-    bool is_assigned() const {
-        return value_ != nullptr;
-    }
-
-    const Val& operator*() const {
-        return *value_;
-    }
-
-    const Val& operator->() const {
-        return *value_;
-    }
-
-private:
-
-    Val* value_;
 };
 
 class intervals
@@ -216,11 +179,10 @@ private:
 
     void clean_overlaps(int start, int stop)
     {
-        std::set<int>::iterator begin = starts_.lower_bound(start);
-        for (auto it = begin; it != starts_.end() && *it <= stop; ++it)
+	    for (auto it = starts_.lower_bound(start); it != starts_.end() && *it <= stop;)
         {
             start_to_stop_.erase(*it);
-            starts_.erase(it);
+	        it = starts_.erase(it);
         }
     }
 
