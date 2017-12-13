@@ -7,7 +7,7 @@ set(
         container_tests.h
         container_tests.cpp
         main.cpp
-)
+        intervals_tests.cpp)
 
 add_executable(testIntervals ${test_sources})
 

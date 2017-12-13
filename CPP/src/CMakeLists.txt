@@ -1,6 +1,8 @@
 set(
         sources
         container.h
-        main.cpp)
+        main.cpp
+        intervals.h
+)
 
 add_executable(intervals ${sources})
